@@ -1,0 +1,15 @@
+services:
+  cloudflared-tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared-tunnel
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TOKEN}
+
+  server:
+    build:
+      context: ./services/test
+    ports:
+      - 80:80
+    restart: unless-stopped
