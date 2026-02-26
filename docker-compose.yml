@@ -8,8 +8,8 @@ services:
       TUNNEL_TOKEN: ${CLOUDFLARE_TOKEN}
 
   postgresql:
-    image: postgresql
-    container_name: postgres:latest
+    image: postgres:latest
+    container_name: postgresql
     restart: unless-stopped
     ports:
       - 5432:5432
