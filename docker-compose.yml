@@ -1,7 +1,7 @@
 services:
-  cloudflared-tunnel:
+  cloudflared:
     image: cloudflare/cloudflared:latest
-    container_name: cloudflared-tunnel
+    container_name: cloudflared
     restart: unless-stopped
     command: tunnel run
     environment:
@@ -15,6 +15,14 @@ services:
       - 5432:5432
     volumes:
       - ./volumes/postgresql:/var/lib/postgresql/18
+      - ./volumes/cloudflared/server.crt:/var/lib/postgresql/server.crt:ro
+      - ./volumes/cloudflared/server.key:/var/lib/postgresql/server.key:ro
+    command:
+      - "postgres"
+      - "-c ssl=on"
+      - "-c ssl_cert_file=/var/lib/postgresql/server.crt"
+      - "-c ssl_key_file=/var/lib/postgresql/server.key"
+
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
