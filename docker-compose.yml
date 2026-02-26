@@ -9,7 +9,7 @@ services:
 
   postgresql:
     image: postgresql
-    container_name: postgresql
+    container_name: postgre:latest
     restart: unless-stopped
     ports:
       - 5432:5432
